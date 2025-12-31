@@ -1,0 +1,24 @@
+version: '3.8' # Docker Compose 파일 규격 버전
+
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root1234
+      MARIADB_DATABASE: waitingdb
+      MARIADB_USER: root
+      MARIADB_PASSWORD: root1234
+      TZ: Asia/Seoul
+    ports:
+      - "3308:3306"
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+    command: redis-server --requirepass redispassword --appendonly yes
+    ports:
+      - "6379:6379"
